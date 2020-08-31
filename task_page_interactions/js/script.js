@@ -13,79 +13,86 @@
 
 5) Добавить нумерацию выведенных фильмов */
 
-const epmptyString = "";
+document.addEventListener("DOMContentLoaded", () => {
+    const epmptyString = "";
 
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
-};
-
-const adv = document.querySelectorAll(".promo__adv img");
-const poster = document.querySelector(".promo__bg");
-const genre = poster.querySelector(".promo__genre");
-
-genre.textContent = "ДРАМА";
-
-adv.forEach(item => {
-    item.remove();
-});
-
-// different types of backtics
-poster.style.backgroundImage = 'url("img/bg.jpg")';
-
-const promoInteractive = document.querySelector(".promo__interactive");
-
-const movieList = promoInteractive.querySelector(".promo__interactive-list");
-
-console.log(movieList);
-
-movieList.innerHTML = "";
-
-movieDB.movies.sort();
-
-const title = document.querySelector(".add");
-
-const approveButton = title.querySelector("button");
-
-const movieDisplaying = () => {
-    movieList.innerHTML = "";
-
-    movieDB.movies.forEach((film, index) => {
-        const incrIndex = 1;
+    const movieDB = {
+        movies: [
+            "Логан",
+            "Лига справедливости",
+            "Ла-ла лэнд",
+            "Одержимость",
+            "Скотт Пилигрим против..."
+        ]
+    };
     
-        movieList.innerHTML += `<li class="promo__interactive-item">${index + incrIndex} ${film}
-                                    <div class="delete"></div>
-                                </li>`;
+    const adv = document.querySelectorAll(".promo__adv img");
+    const poster = document.querySelector(".promo__bg");
+    const genre = poster.querySelector(".promo__genre");
+
+    genre.textContent = "ДРАМА";
+
+    // different types of backtics
+    const movieList = document.querySelector(".promo__interactive-list");
+    const titleForm = document.querySelector("form.add");
+    const addElement = titleForm.querySelector(".adding__input");
+    const checkBox = titleForm.querySelector("[type='checkbox']");
+
+    poster.style.backgroundImage = 'url("img/bg.jpg")';
+
+    const removeAllFromList = (arr) => {
+        arr.forEach(item => {
+            item.remove();
+        });
+    };
+
+    removeAllFromList(adv);
+
+    const movieDisplaying = (films, movieList) => {
+        movieList.innerHTML = "";
+
+        films.sort();
+
+        films.forEach((film, index) => {
+            const incrIndex = 1;
+        
+            movieList.innerHTML += `<li class="promo__interactive-item">${index + incrIndex} ${film}
+                                        <div class="delete"></div>
+                                    </li>`;
+        });
+
+        document.querySelectorAll(".delete").forEach((deleteBtn, index) => {
+            deleteBtn.addEventListener("click", (event) => {
+                deleteBtn.parentElement.remove();
+                films.splice(index, 1);
+                movieDisplaying(films, movieList);
+            });
+        });
+    };
+
+    movieDisplaying(movieDB.movies, movieList);
+
+    titleForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const movieLengthConstraint = 21;
+        let addedMovie = addElement.value;
+
+        if (addedMovie == epmptyString || addedMovie == null) {
+            return;
+        } else if (addedMovie.length > movieLengthConstraint) {
+            addedMovie = `${addedMovie.substring(0, 22)}...`;
+        } else if (checkBox.checked) {
+            console.log(`The loviest film is ${addedMovie}`);
+        }
+        movieDB.movies.push(addedMovie);
+
+        event.target.reset();
+
+        movieDisplaying(movieDB.movies, movieList);
     });
-};
 
-approveButton.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    const movieLengthConstraint = 20;
-    const addElement = title.querySelector(".adding__input");
-    let addedMovie = addElement.value;
-
-    if (addedMovie == epmptyString || addedMovie == null) {
-        alert("Please insert some new movie");
-        return;
-    } else if (addedMovie.length > movieLengthConstraint) {
-        addedMovie = addedMovie.slice(0, movieLengthConstraint).concat("...");
-    }
-    movieDB.movies.push(addedMovie);
-    addElement.value = epmptyString;
-    movieDisplaying();
+    movieDB.movies.forEach(item => {
+        console.log(item);
+    });
 });
-
-document.querySelectorAll("delete");
-
-movieDB.movies.forEach(item => {
-    console.log(item);
-});
-
-movieDisplaying();
