@@ -13,6 +13,8 @@
 
 5) Добавить нумерацию выведенных фильмов */
 
+const epmptyString = "";
+
 const movieDB = {
     movies: [
         "Логан",
@@ -46,10 +48,44 @@ movieList.innerHTML = "";
 
 movieDB.movies.sort();
 
-movieDB.movies.forEach((film, index) => {
-    const incrIndex = 1;
+const title = document.querySelector(".add");
 
-    movieList.innerHTML += `<li class="promo__interactive-item">${index + incrIndex} ${film}
-                                <div class="delete"></div>
-                            </li>`;
+const approveButton = title.querySelector("button");
+
+const movieDisplaying = () => {
+    movieList.innerHTML = "";
+
+    movieDB.movies.forEach((film, index) => {
+        const incrIndex = 1;
+    
+        movieList.innerHTML += `<li class="promo__interactive-item">${index + incrIndex} ${film}
+                                    <div class="delete"></div>
+                                </li>`;
+    });
+};
+
+approveButton.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const movieLengthConstraint = 20;
+    const addElement = title.querySelector(".adding__input");
+    let addedMovie = addElement.value;
+
+    if (addedMovie == epmptyString || addedMovie == null) {
+        alert("Please insert some new movie");
+        return;
+    } else if (addedMovie.length > movieLengthConstraint) {
+        addedMovie = addedMovie.slice(0, movieLengthConstraint).concat("...");
+    }
+    movieDB.movies.push(addedMovie);
+    addElement.value = epmptyString;
+    movieDisplaying();
 });
+
+document.querySelectorAll("delete");
+
+movieDB.movies.forEach(item => {
+    console.log(item);
+});
+
+movieDisplaying();
