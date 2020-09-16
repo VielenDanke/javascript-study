@@ -1,0 +1,54 @@
+"use strict";
+
+window.addEventListener("DOMContentLoaded", () => {
+    const modalTriggerBtns = document.querySelectorAll("[data-modal]");
+    const modal = document.querySelector(".modal");
+    const modalCloseBtn = document.querySelector("[data-close]");
+
+    modalTriggerBtns.forEach(item => {
+        item.addEventListener("click", event => {
+            event.preventDefault();
+            contactUsModalWindow(
+                "show",
+                "hide",
+                "hidden"
+            );
+        });
+    });
+
+    modalCloseBtn.addEventListener("click", event => {
+        event.preventDefault();
+        contactUsModalWindow(
+            "hide",
+            "show",
+            ""
+        );
+    });
+
+    modal.addEventListener("click", event => {
+        event.preventDefault();
+
+        if (event.target === modal) {
+            contactUsModalWindow(
+                "hide",
+                "show",
+                ""
+            );
+        }
+        document.addEventListener("keydown", event => {
+            if (event.code === "Escape" && modal.classList.contains("show")) {
+                contactUsModalWindow(
+                    "hide",
+                    "show",
+                    ""
+                );
+            }
+        });
+    });
+
+    function contactUsModalWindow(toAdd, toRemove, overflowStyle) {
+        modal.classList.add(toAdd);
+        modal.classList.remove(toRemove);
+        document.body.style.overflow = overflowStyle;
+    }
+});
