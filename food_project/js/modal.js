@@ -13,6 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 "hide",
                 "hidden"
             );
+            clearInterval(modalTimerId);
         });
     });
 
@@ -51,4 +52,19 @@ window.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove(toRemove);
         document.body.style.overflow = overflowStyle;
     }
+
+    function showModalWindowWithTimeout() {
+        contactUsModalWindow("show", "hide", "hidden");
+    }
+
+    const modalTimerId = setTimeout(showModalWindowWithTimeout, 3000);
+
+    function showByScrollEvent() {
+        if ((window.pageYOffset + document.documentElement.clientHeight) >= document.documentElement.scrollHeight) {
+            contactUsModalWindow("show", "hide", "hidden");
+            window.removeEventListener("scroll", showByScrollEvent);
+        }
+    }
+
+    window.addEventListener("scroll", showByScrollEvent);
 });
