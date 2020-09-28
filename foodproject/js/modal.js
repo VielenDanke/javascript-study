@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 "hide",
                 "hidden"
             );
-            clearInterval(modalTimerId);
+            // clearInterval(modal);
         });
     });
 
