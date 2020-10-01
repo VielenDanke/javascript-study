@@ -1,0 +1,3 @@
+npm init
+npm install --what-will-be-installed | -g or empty (global or locally) | profile of working (--save-dev for development, --save for project working)
+to install all dependencies in project - npm install
