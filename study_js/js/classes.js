@@ -31,3 +31,22 @@ console.log(div.calcArea());
 console.log(div.showMyProps());
 console.log(square.calcArea());
 console.log(long.calcArea());
+
+const person = {
+    name: "Alex",
+    age: 25,
+
+    get userAge() {
+        return this.age;
+    },
+
+    set userAge(age) {
+        this.age = age;
+    }
+};
+
+console.log(person.userAge);
+
+person.userAge = 30;
+
+console.log(person.userAge);
