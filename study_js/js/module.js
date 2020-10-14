@@ -1,25 +1,32 @@
 "use strict";
 
-const app = "123";
+const myModule = require("./lib");
 
-const number = 1;
+const myModuleInstance = new myModule();
 
-(function(){
-    let number = 2;
-    console.log(number);
-    console.log(number + 3);
-}());
+myModuleInstance.hello();
+myModuleInstance.goodbye();
 
-console.log(number);
+// const app = "123";
 
-const user = (function(){
-    const inner = () => {
-        console.log("Private");
-    };
+// const number = 1;
 
-    return {
-        sayHello: inner
-    };
-}());
+// (function(){
+//     let number = 2;
+//     console.log(number);
+//     console.log(number + 3);
+// }());
 
-user.sayHello();
+// console.log(number);
+
+// const user = (function(){
+//     const inner = () => {
+//         console.log("Private");
+//     };
+
+//     return {
+//         sayHello: inner
+//     };
+// }());
+
+// user.sayHello();
