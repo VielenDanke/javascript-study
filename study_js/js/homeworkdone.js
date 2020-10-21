@@ -16,10 +16,10 @@ const money = calcCash(sponsors);
 
 const {cash, eu, rus} = sponsors;
 
-function makeBusiness(owner, director = "Victor", emp, cash, eu, rus) {
+function makeBusiness({owner = "Sam", director = "Victor", emp, cash, eu, rus}) {
     console.log(`We have a business. Owner: ${owner}, director: ${director}. Our budget: ${cash}. And our employers:
     ${emp}`);
     console.log(`And we have a sponsors: ${eu} ${rus} unexpected sponsor`);
     console.log(`Note. Be careful with ${eu[0]}. It's a huge risk.`);
 }
-makeBusiness("Sam", "Viktor", employers, money, eu, rus);
+makeBusiness({emp: employers, cash: money, eu: eu, rus: rus});
